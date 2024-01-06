@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Matching System</title>
+</head>
+<body style="background-color: #f0f0f0; font-family: Arial, sans-serif;">
+
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <img src="{{ url_for('static', filename='Pinecrest_img.png') }}" alt="Logo" style="max-width: 100%; height: auto;">
+
+        <h1 style="background: linear-gradient(45deg, #FFA500, #FFFF00); -webkit-background-clip: text; color: transparent;">Volunteer 		Matching System</h1>
+
+        <form method="post">
+            <label for="volunteer_name" style="font-weight: bold;">Volunteer Name:</label>
+            <input type="text" id="volunteer_name" name="volunteer_name" required>
+
+            <label for="volunteer_skills" style="font-weight: bold;">Skills:</label>
+            <input type="text" id="volunteer_skills" name="volunteer_skills" required>
+
+            <label for="volunteer_availability" style="font-weight: bold;">Availability:</label>
+            <input type="text" id="volunteer_availability" name="volunteer_availability" required>
+
+            <button type="submit">Match Volunteers</button>
+        </form>
+
+        {% if volunteer %}
+            <h2 style="font-weight: bold;">Volunteer Information:</h2>
+            <p><strong>Name:</strong> {{ volunteer.name }}</p>
+            <p><strong>Skills:</strong> {{ ', '.join(volunteer.skills) }}</p>
+            <p><strong>Availability:</strong> {{ ', '.join(volunteer.availability) }}</p>
+        {% endif %}
+
+        {% if matches %}
+            <h2 style="font-weight: bold;">Matching Results:</h2>
+            <ul>
+                {% for match in matches %}
+                    <li>{{ match['Volunteer'] }} is matched with {{ match['Task'] }}</li>
+                {% endfor %}
+            </ul>
+        {% elif volunteer %}
+            <p>No matches found.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
